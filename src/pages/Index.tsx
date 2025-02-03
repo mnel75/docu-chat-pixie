@@ -1,28 +1,56 @@
 import DocumentPreview from "@/components/DocumentPreview";
 import ChatPanel from "@/components/ChatPanel";
+import DocumentList from "@/components/DocumentList";
 import { useState } from "react";
 
 const Index = () => {
   const [highlightText, setHighlightText] = useState("");
   
-  const sampleDocument = {
-    title: "Sample PDF Document",
-    content: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Example PDF URL
-    isPdf: true
-  };
+  // Sample documents array
+  const documents = [
+    {
+      id: "1",
+      title: "Sample PDF Document",
+      content: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      isPdf: true
+    },
+    {
+      id: "2",
+      title: "Getting Started Guide",
+      content: "This is a sample text document content...",
+      isPdf: false
+    },
+    {
+      id: "3",
+      title: "User Manual",
+      content: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      isPdf: true
+    }
+  ];
+
+  const [selectedDocument, setSelectedDocument] = useState(documents[0]);
 
   return (
     <div className="h-screen flex">
-      <div className="w-1/2 border-r">
-        <DocumentPreview
-          title={sampleDocument.title}
-          content={sampleDocument.content}
-          isPdf={sampleDocument.isPdf}
-          highlightText={highlightText}
+      <div className="w-64 border-r">
+        <DocumentList
+          documents={documents}
+          selectedDocument={selectedDocument}
+          onSelectDocument={setSelectedDocument}
         />
       </div>
-      <div className="w-1/2">
-        <ChatPanel onHighlightText={setHighlightText} />
+      <div className="flex-1 flex">
+        <div className="w-1/2 border-r">
+          <DocumentPreview
+            title={selectedDocument.title}
+            content={selectedDocument.content}
+            isPdf={selectedDocument.isPdf}
+            highlightText={highlightText}
+          />
+        </div>
+        <div className="w-1/2">
+          <ChatPanel onHighlightText={setHighlightText} />
+        </div>
       </div>
     </div>
   );
