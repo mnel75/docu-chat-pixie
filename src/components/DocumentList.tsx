@@ -12,9 +12,20 @@ interface DocumentListProps {
   documents: Document[];
   selectedDocument?: Document;
   onSelectDocument: (document: Document) => void;
+  searchText?: string;
 }
 
-const DocumentList = ({ documents, selectedDocument, onSelectDocument }: DocumentListProps) => {
+const DocumentList = ({ documents, selectedDocument, onSelectDocument, searchText }: DocumentListProps) => {
+  const isDocumentMatching = (doc: Document) => {
+    if (!searchText) return false;
+    // For PDF documents, we can't search content directly
+    // For text documents, search in content
+    if (!doc.isPdf) {
+      return doc.content.toLowerCase().includes(searchText.toLowerCase());
+    }
+    return false;
+  };
+
   return (
     <div className="h-full flex flex-col">
       <div className="border-b p-4">
@@ -30,10 +41,14 @@ const DocumentList = ({ documents, selectedDocument, onSelectDocument }: Documen
             onClick={() => onSelectDocument(doc)}
             className={cn(
               "w-full flex items-center gap-2 p-3 rounded-lg hover:bg-muted transition-colors text-left mb-2",
-              selectedDocument?.id === doc.id && "bg-muted"
+              selectedDocument?.id === doc.id && "bg-muted",
+              isDocumentMatching(doc) && "ring-2 ring-primary"
             )}
           >
-            <File className="text-primary" size={20} />
+            <File className={cn(
+              "text-primary",
+              isDocumentMatching(doc) && "animate-pulse"
+            )} size={20} />
             <span className="truncate">{doc.title}</span>
           </button>
         ))}

@@ -17,7 +17,7 @@ const Index = () => {
     {
       id: "2",
       title: "Getting Started Guide",
-      content: "This is a sample text document content...",
+      content: "This is a sample text document content that talks about getting started with our application. You can search for specific terms in this document.",
       isPdf: false
     },
     {
@@ -30,6 +30,11 @@ const Index = () => {
 
   const [selectedDocument, setSelectedDocument] = useState(documents[0]);
 
+  const handleHighlightText = (text: string) => {
+    setHighlightText(text);
+    console.log("Searching for text in documents:", text);
+  };
+
   return (
     <div className="h-screen flex">
       <div className="w-64 border-r">
@@ -37,6 +42,7 @@ const Index = () => {
           documents={documents}
           selectedDocument={selectedDocument}
           onSelectDocument={setSelectedDocument}
+          searchText={highlightText}
         />
       </div>
       <div className="flex-1 flex">
@@ -49,7 +55,7 @@ const Index = () => {
           />
         </div>
         <div className="w-1/2">
-          <ChatPanel onHighlightText={setHighlightText} />
+          <ChatPanel onHighlightText={handleHighlightText} />
         </div>
       </div>
     </div>
