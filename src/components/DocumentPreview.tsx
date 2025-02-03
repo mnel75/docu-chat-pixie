@@ -1,7 +1,7 @@
 import { FileText } from "lucide-react";
 import TagList from "./TagList";
 import { Document, Page, pdfjs } from 'react-pdf';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import 'react-pdf/dist/esm/Page/TextLayer.css';
 
@@ -15,15 +15,30 @@ interface DocumentPreviewProps {
   content: string;
   title: string;
   isPdf?: boolean;
+  highlightText?: string;
 }
 
-const DocumentPreview = ({ content, title, isPdf = false }: DocumentPreviewProps) => {
+const DocumentPreview = ({ content, title, isPdf = false, highlightText = '' }: DocumentPreviewProps) => {
   const [numPages, setNumPages] = useState<number>(1);
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [pdfDocument, setPdfDocument] = useState<any>(null);
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
+    setPdfDocument(pdfDocument);
   };
+
+  useEffect(() => {
+    if (highlightText && pdfDocument) {
+      const textLayer = document.querySelector('.react-pdf__Page__textContent');
+      if (textLayer) {
+        const textContent = textLayer.textContent || '';
+        const regex = new RegExp(highlightText, 'gi');
+        const highlightedText = textContent.replace(regex, (match) => `<mark>${match}</mark>`);
+        textLayer.innerHTML = highlightedText;
+      }
+    }
+  }, [highlightText, pageNumber, pdfDocument]);
 
   return (
     <div className="h-full flex flex-col">

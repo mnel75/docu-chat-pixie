@@ -1,7 +1,10 @@
 import DocumentPreview from "@/components/DocumentPreview";
 import ChatPanel from "@/components/ChatPanel";
+import { useState } from "react";
 
 const Index = () => {
+  const [highlightText, setHighlightText] = useState("");
+  
   const sampleDocument = {
     title: "Sample PDF Document",
     content: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf", // Example PDF URL
@@ -15,10 +18,11 @@ const Index = () => {
           title={sampleDocument.title}
           content={sampleDocument.content}
           isPdf={sampleDocument.isPdf}
+          highlightText={highlightText}
         />
       </div>
       <div className="w-1/2">
-        <ChatPanel />
+        <ChatPanel onHighlightText={setHighlightText} />
       </div>
     </div>
   );

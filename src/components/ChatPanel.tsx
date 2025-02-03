@@ -9,7 +9,11 @@ interface Message {
   timestamp: Date;
 }
 
-const ChatPanel = () => {
+interface ChatPanelProps {
+  onHighlightText?: (text: string) => void;
+}
+
+const ChatPanel = ({ onHighlightText }: ChatPanelProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -28,6 +32,11 @@ const ChatPanel = () => {
     };
     
     setMessages((prev) => [...prev, newMessage]);
+    
+    // Send the text to be highlighted in the PDF
+    if (onHighlightText) {
+      onHighlightText(content);
+    }
     
     // Simulate assistant response
     setTimeout(() => {
