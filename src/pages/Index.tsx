@@ -33,10 +33,10 @@ const Index = () => {
   // Sample field status data
   const fieldStatus = [
     { field: "Title", filled: true, required: true },
-    { field: "Author", filled: false, required: true },
-    { field: "Date", filled: true, required: true },
-    { field: "Keywords", filled: false, required: false },
-    { field: "Description", filled: true, required: true },
+    { field: "Age", filled: false, required: true },
+    { field: "Name", filled: true, required: true },
+    { field: "Center", filled: false, required: false },
+    { field: "Doctor", filled: true, required: true },
     { field: "Category", filled: false, required: true },
   ];
 
