@@ -36,26 +36,40 @@ const Index = () => {
   };
 
   return (
-    <div className="h-screen flex">
-      <div className="w-64 border-r">
-        <DocumentList
-          documents={documents}
-          selectedDocument={selectedDocument}
-          onSelectDocument={setSelectedDocument}
-          searchText={highlightText}
-        />
+    <div className="h-screen flex flex-col">
+      <div className="border-b p-4 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-2xl font-bold text-primary mb-1">Document Chat Assistant</h1>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="font-mono bg-muted px-2 py-0.5 rounded">ID: {selectedDocument.id}</span>
+            <span>•</span>
+            <p className="text-sm">
+              Interactive document viewer with chat capabilities. Search and highlight text across your documents.
+            </p>
+          </div>
+        </div>
       </div>
       <div className="flex-1 flex">
-        <div className="w-1/2 border-r">
-          <DocumentPreview
-            title={selectedDocument.title}
-            content={selectedDocument.content}
-            isPdf={selectedDocument.isPdf}
-            highlightText={highlightText}
+        <div className="w-64 border-r">
+          <DocumentList
+            documents={documents}
+            selectedDocument={selectedDocument}
+            onSelectDocument={setSelectedDocument}
+            searchText={highlightText}
           />
         </div>
-        <div className="w-1/2">
-          <ChatPanel onHighlightText={handleHighlightText} />
+        <div className="flex-1 flex">
+          <div className="w-1/2 border-r">
+            <DocumentPreview
+              title={selectedDocument.title}
+              content={selectedDocument.content}
+              isPdf={selectedDocument.isPdf}
+              highlightText={highlightText}
+            />
+          </div>
+          <div className="w-1/2">
+            <ChatPanel onHighlightText={handleHighlightText} />
+          </div>
         </div>
       </div>
     </div>
