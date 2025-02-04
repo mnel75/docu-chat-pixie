@@ -1,7 +1,9 @@
 import DocumentPreview from "@/components/DocumentPreview";
 import ChatPanel from "@/components/ChatPanel";
 import DocumentList from "@/components/DocumentList";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useState } from "react";
+import { CheckCircle2, XCircle } from "lucide-react";
 
 const Index = () => {
   const [highlightText, setHighlightText] = useState("");
@@ -26,6 +28,16 @@ const Index = () => {
       content: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
       isPdf: true
     }
+  ];
+
+  // Sample field status data
+  const fieldStatus = [
+    { field: "Title", filled: true, required: true },
+    { field: "Author", filled: false, required: true },
+    { field: "Date", filled: true, required: true },
+    { field: "Keywords", filled: false, required: false },
+    { field: "Description", filled: true, required: true },
+    { field: "Category", filled: false, required: true },
   ];
 
   const [selectedDocument, setSelectedDocument] = useState(documents[0]);
@@ -67,8 +79,49 @@ const Index = () => {
               highlightText={highlightText}
             />
           </div>
-          <div className="w-1/2">
-            <ChatPanel onHighlightText={handleHighlightText} />
+          <div className="w-1/2 flex flex-col">
+            <div className="flex-1">
+              <ChatPanel onHighlightText={handleHighlightText} />
+            </div>
+            <div className="border-t p-4">
+              <h3 className="text-lg font-semibold mb-3">Document Fields Status</h3>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Field</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Required</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {fieldStatus.map((status) => (
+                    <TableRow key={status.field}>
+                      <TableCell>{status.field}</TableCell>
+                      <TableCell>
+                        {status.filled ? (
+                          <div className="flex items-center text-green-600">
+                            <CheckCircle2 className="h-4 w-4 mr-1" />
+                            <span>Filled</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center text-red-600">
+                            <XCircle className="h-4 w-4 mr-1" />
+                            <span>Empty</span>
+                          </div>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {status.required ? (
+                          <span className="text-red-600">Required</span>
+                        ) : (
+                          <span className="text-muted-foreground">Optional</span>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </div>
         </div>
       </div>
