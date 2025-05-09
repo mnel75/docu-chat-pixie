@@ -121,8 +121,8 @@ const Index = () => {
                   {fieldStatus.map((status) => (
                     <TableRow key={status.field}>
                       <TableCell>{status.field}</TableCell>
-                      <TableCell>{status.Value}</TableCell>
-                      <TableCell>{status.Context}</TableCell>
+                      <TableCell>{status.value}</TableCell>
+                      <TableCell>{status.context}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
