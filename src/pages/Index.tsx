@@ -108,39 +108,21 @@ const Index = () => {
             </div>
             {/* Table with fields and filled indicators */}
             <div className="border-t p-4">
-              <h3 className="text-lg font-semibold mb-3">Document Fields Status</h3>
+              <h3 className="text-lg font-semibold mb-3">Document Fields Context</h3>
               <Table>
                 <TableHeader>
                   <TableRow>
                     <TableHead>Field</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Required</TableHead>
+                    <TableHead>Value</TableHead>
+                    <TableHead>Context</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {fieldStatus.map((status) => (
                     <TableRow key={status.field}>
                       <TableCell>{status.field}</TableCell>
-                      <TableCell>
-                        {status.filled ? (
-                          <div className="flex items-center text-green-600">
-                            <CheckCircle2 className="h-4 w-4 mr-1" />
-                            <span>Filled</span>
-                          </div>
-                        ) : (
-                          <div className="flex items-center text-red-600">
-                            <XCircle className="h-4 w-4 mr-1" />
-                            <span>Empty</span>
-                          </div>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        {status.required ? (
-                          <span className="text-red-600">Required</span>
-                        ) : (
-                          <span className="text-muted-foreground">Optional</span>
-                        )}
-                      </TableCell>
+                      <TableCell>{status.Value}</TableCell>
+                      <TableCell>{status.Context}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
