@@ -34,13 +34,11 @@ const Index = () => {
 
   // Sample field status data
   const fieldStatus = [
-    { field: "Title", filled: true, required: true },
-    { field: "Age", filled: false, required: true },
-    { field: "Name", filled: true, required: true },
-    { field: "Center", filled: false, required: false },
-    { field: "Doctor", filled: true, required: true },
-    { field: "Category", filled: false, required: true },
-  ];
+    { field: "PatientName", value: "Manel Crespo", context: "el pacient manel crespo" },
+    { field: "PatientAge", value: "50", context: "amb la data de naixement 27/03/1975" },
+    { field: "DoctorName", value: "Dr. Jose Guitart", context: "el dr. Jose guitart ha tractat" },
+    { field: "Speciality", value: "Psicologist", context: "la especialitat de Psicologia" },
+    ];
 
   const [selectedDocument, setSelectedDocument] = useState(documents[0]);
 
